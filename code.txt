@@ -1,1 +1,40 @@
+Js для дропдаун, скрол
 
+         <div class="box-search">
+                    <div class="box-search-wrapper">
+                            <img src="<?php echo get_template_directory_uri(); ?>/img/search.svg" alt="">
+                             <span>Search</span>
+                     </div>
+                     <div class="box-seach">
+			<?php //echo do_shortcode('[wcas-search-form]'); ?>
+                         <?php if ( function_exists( 'aws_get_search_form' ) ) { aws_get_search_form(); } ?>
+                      </div>
+           </div>
+
+
+// ------------------
+  $(document).on('click', '.box-search-wrapper', function (e) {
+    e.preventDefault();
+    $('.box-search-wrapper').toggleClass('active');
+    $('.box-seach').toggleClass('active');
+    $('.aws-wrapper .aws-search-field').on('click');
+  });
+
+
+//Це коли нажимаєш куди завгодно окрім кнопки, то клас актів видаляється
+  document.documentElement.addEventListener("click", function (e) {
+    if (!e.target.closest('.box-seach') && !e.target.closest('.box-search-wrapper')) {
+      $('.box-seach').removeClass('active');
+      $('.box-search-wrapper').removeClass('active');
+    }
+  });
+
+
+//коли скролиш вниз, то то клас актів видаляється
+  $(window).scroll(function() {
+    if($('.box-seach').hasClass('active') && $(this).scrollTop() > 100){
+      $('.box-seach').removeClass('active');
+      $('.box-search-wrapper').removeClass('active');
+    }
+  })
+// ------------------
